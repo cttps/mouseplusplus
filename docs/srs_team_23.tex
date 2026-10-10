@@ -1,0 +1,568 @@
+\documentclass{article}
+\usepackage[margin=1in,top=0in,includehead,headheight=1in]{geometry}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usepackage{dirtree}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{titling}
+\usepackage[table]{xcolor}
+\usepackage{pgfgantt}
+\usepackage{soul}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\renewcommand{\headrulewidth}{0pt}
+%\fancyhf{}
+\fancyhead[L]{Team 23}
+\fancyhead[C]{Mouse$++$}
+\fancyhead[R]{Version 0.1 Baseline}
+\pagenumbering{arabic}
+\pagestyle{fancy}
+
+
+\title{Unified Software Requirements Specification (SRS) \& Project Plan}
+\author{}
+\date{}
+\predate{}
+\preauthor{}
+\postdate{}
+\postauthor{}
+
+\newcommand{\linkemail}[1]{\href{mailto:#1}{#1}}
+
+% comment the other to hide highlights
+\newcommand{\todo}{\hl}
+% \newcommand{\todo}{}
+
+\renewcommand{\thesection}{Part~\Roman{section}}
+\newcommand{\partsection}{%
+    \section[Part \Roman{section}]{}
+}
+\renewcommand{\thesubsection}{\arabic{subsection}. }
+\counterwithout{subsection}{section}
+
+% TODO remove this line to start subsection counting at 1
+\setcounter{subsection}{1}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\partsection{}
+
+\subsection{Personnel \& Roles}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+    \hline
+    \rowcolor{lightgray}
+    \textbf{Name} & \textbf{McMaster Email} & \textbf{Primary Technical Disciplines} \\
+    \hline Bobby Abtahi     & \linkemail{abtahib@mcmaster.ca}  & Machine Learning, Software \\
+    \hline Guneev Arora     & \linkemail{arorag12@mcmaster.ca} & Machine Learning \\
+    \hline Evan Moon        & \linkemail{moone1@mcmaster.ca}   & UI/UX, Software \\
+    \hline Kamalpreet Singh & \linkemail{singk17@mcmaster.ca}  & Embedded Programming, UI \\
+    \hline Natasha Taylor   & \linkemail{taylon17@mcmaster.ca} & Software Engineering, Machine Learning \\
+    \hline
+\end{tabularx}
+
+
+\subsection{Definitions, Acronyms, \& Abbreviations}
+
+\begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \rowcolor{lightgray}
+    \textbf{Technical Term} & \textbf{Explanation} \\
+    \hline UI  & Stands for ``User Interface'' \\
+    \hline OS  & Stands for ``Operating System'' \\
+    \hline Win & Abbrieviation of ``Windows'' the OS by Microsoft \\
+    \hline PR & Stands for ``Pull Request'' \\
+    \hline GPU & Stands for ``Graphics Processing Unit'' \\
+    \hline 
+\end{tabularx}
+
+\subsection{Contribution Table}
+
+\begin{tabularx}{\textwidth}{|l|l|X|}
+    \hline
+    \rowcolor{lightgray}
+    \textbf{Name} & \textbf{Parts Worked On} & \textbf{Estimated Contribution Percentage} \\
+    \hline Bobby Abtahi     & all & 20\% \\
+    \hline Guneev Arora     & all & 20\% \\
+    \hline Evan Moon        & all & 20\% \\
+    \hline Kamalpreet Singh & all & 20\% \\
+    \hline Natasha Taylor   & all & 20\% \\
+    \hline
+\end{tabularx}
+
+\subsection{Executive Summary \& Purpose}
+
+We aim to develop a camera-based mouse that uses computer vision to track the movement and positions of a user's hands. The goal is to create a functional alternative to current mouse technology by building a plug-and-play style input peripheral that steps away from more traditional human-computer-interface designs and feels more natural to use. Interaction via a traditional mouse is familiar and effective and has become second-nature to most people, but it does have trade-offs. Most mice use some form of optical tracking and require an adequate surface for them to do so, the accuracy of their tracking can be limited depending on a user's environment, and depending on a user's position and setup they can be inconvenient to use or worse cause joint pain in the wrist and arm. Our proposed solution is a mouse that ditches this paradigm and instead opts to track the motions of a user's hand and translate that into input commands allowing the user to interact with their computer without having to touch an input device at all. Furthermore, for the system to feel smooth and useable it must have high accuracy, low latency, and be easy to set up. The intended impact of the project is to demonstrate that a camera-based hand-tracking input system is a viable alternative to regular pointing devices. The project should enable users to interact effectively with their computers in scenarios where a regular mouse is inconvenient to use or is not usable due to accessibility concerns.
+
+\partsection{}
+
+\subsection{Stakeholders \& User Personas}
+
+\textbf{Stakeholders}
+  
+
+\begin{itemize}
+  \item Primary Clients
+    \begin{itemize}
+      \item As touched on in the executive summary, the introduction of this device can have a direct effect on multiple groups, who we expect to use this product regularly.
+      
+      \item Computer Users with Disability/Ergonomic Concerns
+        \begin{itemize}
+          \item This device introduces the benefit of being accessible to a wider scope than a traditional mouse. Using a mouse typically requires a used to be sat in an upright position with a table/flat surface at a comfortable height above their lap. This set up raises many concerns for a different subsets of the population.
+            \item Left-handed users: This device is not centered around right-hand dominant users, as opposed to the traditional mouse.
+            \item Sufferers of Carpal Tunnel Syndrome/Arthritis/Repetitive Stress Injuries: An input that requires hand waiving and gesturing rather than the typical outstretched "hand-claw" may provide relief.
+            \item Sufferers of tremors: This device requires less fidelity than a typical move and click mouse.
+            \item Wheelchair users: May have difficulty using a mouse, especially if the desk cannot be pulled towards their torso.
+            \item People with a right hand of limited to no use: The device can be operated by use of either hand seperately.
+        \end{itemize}
+      \item Tech Enthusiasts
+        \begin{itemize}
+          \item The computer mouse has been widely adopted since the 1980s, and its form factor has remained mostly unchanged. A novel idea such as Mouse++ will definitely have interest from the early-adopter tech enthusiast community.
+        \end{itemize}
+      \end{itemize}
+  \item Secondary Stakeholders
+    \begin{itemize}
+      \item Although these stakeholders may not use Mouse++ regularly, they will be indirectly affected by those who do use it, or the general introduction of this device into the market.
+      \item Family and Caregivers of Users: A device like this can provide autonomy to users who may have struggled to operate a computer using a mouse without the help of a caregiver. 
+      \item Companies and Institutions: A viable alternative to a mouse that provides accessibility considerations would be on the radar of companies and instutions that purchase technology for their employees, students, etc. \\
+      \item Legacy Computer Hardware Companies: Introducing a product in a space that has been dominated by computer mice for decades will be noticed by legacy companies like Logitech, Acer, Lenovo. Should our product ever be successful, these companies would need to pivot accordingly.
+    \end{itemize}
+  
+\end{itemize}
+
+\textbf{User Personas (End-User Archetypes)}
+  \begin{enumerate}
+    \item A User with Mouse-related Pain
+    
+    \begin{itemize}
+      \item Meet John
+      \begin{itemize}
+        \item Age 22  
+        \item Engineering Student at McMaster University
+      \end{itemize}
+      
+      \item John's Routine
+      \begin{itemize}
+        \item John spends most of the day at home, seated at his desk using his computer
+        \item He spends 5-7 hours on the computer doing schoolwork and personal projects. 
+        \item This involves using engineering software, reading lecture slides, and reviewing documnets.
+        \item Once his work is done, he'll have 2-3 hours of leisure time, where he browses the internet and watches TV shows.
+      \end{itemize}
+
+      \item John's Frustration
+      \begin{itemize}
+        \item Constant use of his mouse has led to persistent pain in his right palm and wrist.
+        \item He has been advised to reduce repetitive stress on his right hand by a couple hours a day.
+      \end{itemize}
+
+      \item John's Goal
+        \begin{itemize}
+          \item He wants to be able to continue his regular routine, as limiting his computer time is not feasible.
+        \end{itemize}
+      
+      \item How Mouse++ Could Help
+      \begin{itemize}
+        \item John can use Mouse++ to scroll through, click, and navigate his lecture slides, documents, and websites.
+        \item He may still use his keyboard, but a lot of the repetitive workload on his right hand has been offloaded to more ergonomic Mouse++ gestures.
+      \end{itemize}
+    \end{itemize}
+
+    \item A Tech Enthusiast  
+    \begin{itemize}
+      \item Meet Jane
+      \begin{itemize}
+        \item Age 30  
+        \item Works as an IT Specialist at Rogers
+      \end{itemize}
+
+      \item Jane's Routine
+      \begin{itemize}
+        \item Jane works full time at Rogers, maintaining their data centre operations.
+        \item In her free time, Jane loves finding cutting edge tech online and buying it for personal use.
+        \item She has her own blog and posts a review about every new product she tries.
+      \end{itemize}
+
+      \item Jane's Frustration
+      \begin{itemize}
+        \item Jane purchases innovative tech in different product categories: folding phones, curved high-refresh rate displays, smart glasses, etc.
+        \item But she finds that input devices, especially the mouse, have changed very little in comparison.
+        \item Innovations like vertical designs, or adding programmable buttons are not exciting.
+      \end{itemize}
+
+      \item Jane's Need
+      \begin{itemize}
+        \item She is looking for exciting new ways to interact with her computer, beyond the traditional computer mouse. 
+      \end{itemize}
+
+      \item How Mouse++ can help
+      \begin{itemize}
+        \item Mouse++ serves as a new exciting iteration of the mouse. 
+        \item Jane would be eager to test and review this new way of interacting with her computer.
+      \end{itemize}
+      
+    \end{itemize}
+    
+  \end{enumerate}
+  
+
+\subsection{Constraints \& Assumptions}
+
+\textbf{Hardware Requirements}
+
+\begin{itemize}
+\item Camera Module
+\item Microcontroller
+    \begin{itemize}
+    \item The computer vision processing will be done on a microcontroller.
+    \item This gives a standard runtime environment so that we can fine-tune the system and performance to give an equivalent user-experience regardless of the computer the user is attaching the device to.
+    \item This also places limitations on the size of ML/CV models that we can run as they must be able to run efficiently and accurately on a small microcontroller.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Target Operating Systems:} The device and control software should be compatible with the following operating systems:
+
+\begin{itemize}
+\item Windows 10/11 (x86 64-bit systems)
+\item Linux (x86 64-bit systems)
+    \begin{itemize}
+    \item Linux covers a wide-range of platforms, but we would target full support for systems that use Wayland and limited support outside of Wayland.
+    \end{itemize}
+\end{itemize}
+
+This project does not have costs outside of the camera + microcontroller hardware costs. User data will be processed locally on the device and will not be collected or transmitted off-device.
+
+\subsection{Functional Requirements}
+
+\newcommand{\req}[3]{%
+\begin{itemize}%
+\item Input: #1%
+\item Output: #2%
+\item Data flow: #3%
+\end{itemize}%
+}
+\begin{enumerate}[label=\textbf{P\arabic*},leftmargin=\tindent,start=0]
+\item ~
+    \begin{enumerate}[label=Req \arabic*.,leftmargin=\tindent,align=left,labelwidth=\tindent]
+    \item Hand and Landmark Prediction
+    \req{Camera input}
+        {List of 21 landmark (x,y) positions on hand if hand detected (e.g. fingers, knuckles, palm)}
+        {Camera $\to$ YOLO model $\to$ Landmark detection model}
+    \item Computer Vision System detects and classifies hand poses and motions \textit{- Backend}
+    \req{Hand landmarks from YOLO model}
+        {Classified hand poses and motion sent to OS}
+        {Camera $\to$ Computer Vision System $\to$ Device Link $\to$ Driver}
+    \item Driver moves cursor, with movement corresponding to hand motion detected by CV System
+    \req{Chosen hand landmark (x,y) positions}
+        {Movement of cursor on computer UI}
+        {Computer Vision System $\to$ Device Link $\to$ Driver $\to$ OS}
+    \item Driver executes mouse clicks corresponding to hand poses detected by CV System
+    \req{output from cv system}
+        {Right/left click interactions occur on user's computer}
+        {Computer Vision System $\to$ Device Link $\to$ Driver $\to$ OS}
+    \item Must include drivers for Win 10/11
+    \end{enumerate}
+
+\item ~
+    \begin{enumerate}[label=Req \arabic*.,leftmargin=\tindent,align=left,labelwidth=\tindent]
+    \item Control Software \textit{- Frontend}
+        \begin{itemize}
+        \item Application allows user to control Mouse++ settings/preferences, edit or add to the Gesture/Pose Library
+        \end{itemize}
+    \item Gesture/Pose Library
+    \req{Hand Pose/Gesture}
+        {Gesture/Pose Library stores a mapping of known/assigned gestures and poses to cursor motions and actions, and actions on the user's computer are triggered by their corresponding gesture/pose in the Library}
+        {Control Software $\leftrightarrow$ Driver $\leftrightarrow$ Computer Vision System.}
+    \item Screen capture target selection
+    \req{Screen Area selection}
+        {The tracked inputs are contained/scaled within the selected screen bounds}
+        {Control Software $\leftrightarrow$ Driver}
+    \item Camera Operating bounds
+    \req{Camera Operating bounds selection}
+        {The camera should exclude data collected from outside bounds}
+        {Control Software $\leftrightarrow$ Driver $\leftrightarrow$ Computer Vision System}
+    \item Automation/Scripting system
+    \req{Visually defined automation/macro scripts}
+        {Control software should be able to associate scripts with a hand gesture and should be able execute them}
+        {Script Definition $\to$ Control Software $\leftrightarrow$ Driver}
+    \item Control Software should have builds for Win 10/11 and Linux
+    \item Must include drivers for Linux
+    \end{enumerate}
+
+\item ~
+    \begin{enumerate}[label=Req \arabic*.,leftmargin=\tindent,align=left,labelwidth=\tindent]
+    \item Include drivers for Mac OS (specifically targeting Apple Silicon chips)
+    \item Control Software should have builds for Mac OS (specifically targetting apple silicon chips)
+    \item Firmware updates via the control software
+        \begin{itemize}
+        \item The control software should be able to push software updates for the Computer Vision system to the microcontroller
+        \end{itemize}
+    \end{enumerate}
+\item ~
+    \begin{itemize}
+      \item Virtual Keyboard software to allow the user to input text in an efficient way
+      \item Voice Commands, through a microphone on the microcontroller that can trigger an action in the Control Software
+      \item Handwriting text input tool, similar to the Windows Ink feature, allowing the user to draw text and use OCR over it as input
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Data Strategy \& Quantitative Metrics}
+
+\textbf{Datasets}
+\begin{itemize}
+\item HaGRID - HAnd Gesture Recognition Image Dataset
+    \begin{itemize}
+    \item \href{https://github.com/hukenovs/hagrid/tree/Hagrid\_v2-1M}{https://github.com/hukenovs/hagrid/tree/Hagrid\_v2-1M}
+    \item 33 pre-labelled hand-gesture classes
+    \item 1,086,158 total images
+    \item Publically licensed with attribution and conditions reserved, specified in a license file in the repository
+    \end{itemize}
+\item YOLO11n-pose Hand Keypoint Detection
+    \begin{itemize}
+        \item \href{https://github.com/chrismuntean/YOLO11n-pose-hands}{https://github.com/chrismuntean/YOLO11n-pose-hands}
+        \item Existing training pipeline for hand-skeleton recognition similar to the outputs of Google's MediaPipe-hands model
+        \item Supports PyTorch
+        \item APGL 3.0 (inherited from YOLO11n)
+    \end{itemize}
+\end{itemize}
+
+\textbf{Metrics}
+\begin{itemize}
+\item Hand tracking should achieve 15 detections per second
+\item Gesture recognition success rate (test in different lighting and distances from the camera)
+\item Microcontroller CPU/RAM/TEMP usage
+\item Host computer CPU/RAM usage
+\item Latency between hand movement and UI response
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\begin{itemize}
+\item The Control Software is the only component that contains a UI, it should follow WCAG 2.2 level AA guidelines, we likely will not be building it as a web app so WCAG will not apply directly but it is a good benchmark to follow for all UIs regardless 
+\item The Mouse input events should achieve a poll rate of 15 updates per second.
+\item Control software should only change settings on a Mouse++ device that is currently attached to the computer it is running on.
+\item The Mouse++ device should not receive inputs / setting changes from, nor transmit input events to, anything other than the device drivers Mouse++ has provided to the currently connected computer.
+\item Privacy
+  \begin{itemize}
+    \item No usage-statistics or user data should be collected or transmitted.
+    \item All camera data should be kept on the microcontroller, and it should be a closed system such that bad actors cannot remotely access the camera.
+    \item The camera should not save any recordings.
+    \item When the camera's video feed needs to be made available to the Control Software (for bounding box selection or gesture/pose setup), it should be visible obvious to the user that this is being done and the stream should close once the control software exits (intentionally or not). This feed should not be accessible to anything other than the control software
+  \end{itemize}
+\item The system should be fault tolerant such that unexpected failures should keep the Mouse++ device and the attached computer in a recoverable state.
+    \begin{itemize}
+    \item The Mouse++ device should have some form of restart mechanism (both restarting the Computer Vision System or the entire microcontroller) if it runs into an error, it should attempt this restart automatically
+    \item Errors must be handled such that a driver error will not cause the computer to crash.
+    \item Unexpected errors in the Control Software must not place the Microcontroller in an unrecoverable state, and restarting the Control Software should allow the user to complete or restart the action they were taking.
+    \end{itemize}
+\item The three components of the project (Computer Vision System, Device Drivers, and Control Software) should be maintainable and modular such that changes (improvements, features, patches) can be component-specific and not require full software upgrades to all 3 when unnecessary.
+\end{itemize}
+
+\subsection{Risk Management \& Feasibility Analysis}
+
+% \setcounter{subsection}{11}
+
+\begin{tabularx}{\textwidth}{|l|l|X|X|}
+\hline
+\textbf{Risk} & \textbf{Severity} & \textbf{Potential Impact} & \textbf{Mitigation Steps} \\
+\hline
+Memory Leaks & High &
+Delays, overheating, hardware failure &
+Verify through Valgrind, review code by multiple people, and test. \\
+\hline
+Poor Environment Conditions & Low &
+Inaccurate inputs &
+Add warnings for these situations. Train the model using augmented data that includes them. \\
+\hline
+Device Link Failure & Medium &
+Poor connections, faulty wires, or Bluetooth interference can cause delays and a bad user experience. &
+Build redundant connections and warn users when failures occur. \\
+\hline
+\end{tabularx}
+
+% | \textbf{Obstacle} | Liklihood |
+% | --- | --- |
+% 
+
+%A risk matrix detailing the likelihood of technical or administrative obstacles, their potential impact, and concrete mitigation steps.
+
+% \textit{NOTE: I don't really want to do this. I'm pretty sure our project is mostly just putting together a bunch of pieces that exist already. The risks that I can think of not being able to make a model, not acquiring driver credentials/certificates are stuff that we literally can't complete the project without. So I don't see a benefit to listing those since there are no workarounds. Also idk what a risk matrix is}
+
+% \textit{That being said maybe we should do this anyways just to pad page count? Cause idk what he was smoking but this section is not 8 pages long}
+
+\partsection{}
+
+\subsection{Team Communication \& Meeting Cadence}
+
+The group will meet to discuss updates and progress once a week with the entire group present. Meeting notes for these meetings will be taken by a group member assigned through a rotating schedule, and saved under the \texttt{/meetings} directory in the git repository. Group members are required to provide twice weekly updates to a shared communication channel in the form of a bulletin that the rest of the team can look at during the time in-between meetings if needed.
+
+We do not have a supervisor so we will not need to schedule the 2/semester meetings with one.
+
+We will schedule at least 1 meeting per semester with our TA to check-in and provide progress updates.
+
+\subsection{Engineering Workflow \& Version Control}
+
+\textbf{Repository structure}
+\dirtree{%
+.1 /.
+.2 /docs.
+.2 /meetings.
+.2 /computer-vision.
+.3 /src.
+.2 /drivers.
+.3 /win10\_11.
+.4 /src.
+.3 /linux.
+.4 /src.
+.2 /control\_software.
+.3 /src.
+}
+
+The goal is to improve maintainability of the three components by having them be largely independent. As such they are split into their own directories in the repository and will also be given their own branches. Specifically the branch for one component will not include the source directories for either of the others. While unconventional this means that someone working on a specific component can only make changes to that component and also allows for a better view of the commit history on a per-component basis. \\
+
+\textbf{Workflow}
+
+The \texttt{main} branch will be locked so that no changes can be directly committed to it, nor can it be pushed to. Instead we will require PRs to be made for merges to the main branch and these PRs must receive approval from at least one group member other than the original author. \textit{Note: Commits must not be squashed during a merge.}
+
+The subbranches for each component will not be locked in this manner to prevent impeding development, but when merging changes made to these branches to main it is important for relevant commits to be cherrypicked so that only changes specific to a feature are included in a given PR. This keeps PRs smaller and easier to read and keep track of. While commits can be made directly to the subbranches it is recommended that work is done in separate branches that can then be merged to these subbranches. The separate branches should follow a predictable naming scheme, preferably \texttt{/<component>/<type>/descriptive-name}, so the branch for feature A on component B should be called \texttt{/B/feature/feature-A}.
+
+The workflow for working on a component specific change then becomes:
+\begin{enumerate}
+\item Create branch specific to change, branching from the component's subbranch.
+\item Merge branch into component's subbranch.
+\item Cherrypick relevent commits to create PR to merge with main.
+\item Get approval/review from at least 1 other member.
+\item When approved, merge PR.
+\end{enumerate}
+
+If instead a change is going to affect multiple components and it is important/relevent to the change to keep everything in one PR rather than 3 separate ones (this sceneario will likely occur for late changes to the communication protocols/definitions) then a specific branch for the change can be branched from \texttt{main} itself. A PR must be created, approved, and merged, and then finally the changes must be cherrypicked back into their respective component subbranches. The workflow for a multi-component change becomes:
+
+\begin{enumerate}
+\item Create branch specific to the change, branching from \texttt{main}.
+\item Create PR.
+\item Get approval/review from at least 1 other member.
+\item Merge PR.
+\item Cherry pick changes relevant to each component from \texttt{main} back to each component's subbranch.
+\end{enumerate}
+
+\textbf{Pull Requests}
+
+PRs should be well-documented and easily legible. At the very least a PR must provide a description of the goal and relevant implementation details. Lengthy PRs should be structured into an easy to read format with headings for:
+\begin{itemize}
+\item Expected output/behaviour
+\item Current output/behaviour (optional)
+\item Implementation details
+\item Tested/considered error and edge cases
+\end{itemize}
+When possible a PR should include photos or screenshots to help understand the change. All PRs should be labelled depending on what components they affect. Relevant info should also be linked in a PR. This includes issues that the PR references or solves, and external documentation or articles if used to implement the PR (as well as internal documentation if relevant). The title of a PR should follow the following format: \texttt{[Component] [Type] Title} so a PR for a new feature A on Component B should be titled \texttt{[Component B] [Feature] Initial Implementation of Feature A}.\\
+
+\textbf{CI/CD Pipeline}
+
+We plan on using GitHub action workflows to automate pre-PR checks and to produce nightly builds. Some of the components (drivers and Control Software) will need to be compiled and so we would like tests built in to make sure that the changes in a given PR compile without errors and do not introduce compile errors to the codebase. For these components we would like to create nightly builds so that we can test latest changes frequently. \\
+
+\textbf{Issue Tracking}
+
+Issues should be opened when bugs, incorrect behaviour, or unexpected behaviour/cases are found. Issues should be labelled based on the component they affect. Issues should be titled in the following format: \texttt{[Component] [Type] Title} so an issue regarding an edge-case for feature A on Component B should be titled, e.g.: \texttt{[Component B] [Edge Case] Edge case in Feature A causes ...}. Issues should then be referenced and closed when a PR fixes or addresses them. Closing an issue should only be done by the original author to ensure that whatever behaviour they noticed is properly handled by the fix before closing. Relevant information should be linked with each issue (documentation, code snippets, stack traces, etc.) as well as a detailed description. Any thoughts on the cause of an issue and/or possible solutions should be added in the comment thread of an issue rather than the issue description itself.\\
+
+\textbf{Agile}
+
+Our team plans to do an Agile-focused development plan. Our project is split into software, machine learning, and driver parts. Before each sprint, we plan the next feature set we would like to implement and then go through with a weekly sprint, after which we will conduct a review at our next meeting. Al progress should be documented in PRs on GitHub, which should be ready for review or already reviewed.
+
+\subsection{Infrastructure \& Compute Resources}
+
+The final deployment for this project will be local, so cloud resources are not required. Instead we will need compute resources when training/developing our computer vision models. Between the group we have a system with an Nvidia RTX 5070 and a system with an AMD Radeon 6600. These systems should suffice for testing/exploratory work, but we will likely need more compute to train the final models. In this scenario we will likely use the available McMaster GPU clusters or rent a compute cluster from a service like \href{https://rentgpu.org/gpus}{https://rentgpu.org/gpus} which provides access to a wide range of GPUs at prices ranging from \$0.018 per hour to \$12.95 per hour. We will likely not need a top of the line GPU and so the costs associated with this compute will be largely minimal; we anticipate it being under \$50.
+
+Our anticipated hardware for training is an RTX 4090/5090,
+
+\subsection{Technology Stack \& Architectural Rationale}
+
+\begin{itemize}
+\item Computer Vision System
+    \begin{itemize}
+    \item The ML model will be designed in Python using the PyTorch package, as it has a mature ecosystem and integrates well with other packages. Frequently called functions will be re-written and jit-compiled using JAX to meet the non-functional latency requirement.
+    \item We will train the model both locally and over rented cloud GPU instances, with 3 model stages to maximize performance. A small YOLO model will be in charge of binary hand detection, a custom trained efficient hand landmark/pose estimator will be used to model hand shape, and a small Graph Convolutional Network or Multi-Layer Perceptron model will convert the raw pose outputs into an embedding vector to be used for supporting custom gestures.
+      
+  \item The dataloader will use the  huggingface Datasets package.
+    \end{itemize}
+\item Device Drivers
+    \begin{itemize}
+    \item Will be written in C++, which gives a high level of control and is built to interface with existing device driver development kits.
+    \item The Win 10/11 driver will be written using the Windows Driver Kit (WDK) which is a software development kit designed to provide the necessary Windows library details to implement a device driver, and provides the tools required to sign, package, and build said driver.
+    \end{itemize}
+\item Control Software
+    \begin{itemize}
+    \item C++ with Qt as a UI Framework.
+    \item Qt is highly portable and supported across most platforms, (supported on Windows/Linux/Mac OS).
+    \item Writing both the control software and the device driver in the same language makes it easier to implement communication between the two as it can be written as a library that is shared between both components.
+    \item Qt provides a wide range of UI support for video streaming, UI interactions and a well-featured event-loop system to handle user interactions as well as responses/messages from the device/device driver.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Proof of Concept Demonstration Plan}
+
+The PoC for November 23rd must have a rudimentary computer vision model that shows that the technology itself works (even if it is not finetuned yet). It must also have an example driver for at least one OS (either Win10/11 or Linux). We would also like to have a working communication system between the computer vision system, the device drivers, and the UI. We would like to set up a simple UI that can show that this communication is happening as expected. The UI can be extremely rudimentary and is meant as a barebones basis for the Control Software to be built on top of. The PoC must have a distributable binary for this UI so that we can assure that distributable builds of the Control Software are technically feasible.
+
+\subsection{Project Schedule \& Gantt Chart}
+
+\begin{ganttchart}[
+    time slot format=isodate,
+    x unit=0.06cm,
+    milestone/.append style={xscale=6},
+    y unit chart=0.6cm
+]{2026-10-09}{2027-04-30}
+    \gantttitlecalendar{year, month=shortname} \\
+    \ganttbar{Communication Protocol Definition}{2026-10-09}{2026-11-17} \ganttnewline
+    \ganttbar{Basic CV Model}{2026-10-09}{2026-11-17}                    \ganttnewline
+    \ganttbar{Example Driver}{2026-10-09}{2026-11-17}                    \ganttnewline
+    \ganttbar{Example UI}{2026-10-09}{2026-11-17}                        \ganttnewline
+    \ganttmilestone{PoC}{2026-11-23}                                     \ganttnewline
+
+    \ganttbar{Model Architecture Definition}{2026-12-02}{2026-12-31}  \ganttnewline
+    \ganttlinkedbar{Model Finetuning}{2026-12-20}{2027-01-31}         \ganttnewline
+    \ganttlinkedbar{Model Performance Tuning}{2027-01-15}{2027-02-28} \ganttnewline
+
+    \ganttbar{Win10/11 Driver}{2026-12-02}{2027-01-15} \ganttnewline
+    \ganttbar{Linux Driver}{2026-12-02}{2027-01-15}    \ganttnewline
+    
+    \ganttbar{Barebones UI}{2026-12-15}{2026-12-31} \ganttnewline
+    \ganttbar{P1.R2}{2027-01-04}{2027-01-31}        \ganttnewline
+    \ganttbar{P1.R3}{2027-01-04}{2027-01-31}        \ganttnewline
+    \ganttbar{P1.R4}{2027-01-04}{2027-01-31}        \ganttnewline
+    \ganttbar{P1.R5}{2027-02-05}{2027-03-05}        \ganttnewline
+
+    \ganttmilestone{April 2027 Expo}{2027-04-07} \ganttnewline
+
+    \ganttlink{elem0}{elem4}
+    \ganttlink{elem1}{elem4}
+    \ganttlink{elem2}{elem4}
+    \ganttlink{elem3}{elem4}
+
+    \ganttlink{elem4}{elem5}
+    \ganttlink{elem4}{elem8}
+    \ganttlink{elem4}{elem9}
+    \ganttlink{elem4}{elem10}
+
+    \ganttlink{elem10}{elem11}
+    \ganttlink{elem10}{elem12}
+    \ganttlink{elem10}{elem13}
+
+    \ganttlink{elem10}{elem14}
+    \ganttlink{elem11}{elem14}
+    \ganttlink{elem12}{elem14}
+    \ganttlink{elem13}{elem14}
+
+    \ganttlink{elem8}{elem15}
+    \ganttlink{elem9}{elem15}
+    \ganttlink{elem7}{elem15}
+    \ganttlink{elem14}{elem15}
+\end{ganttchart}
+
+\end{document}
